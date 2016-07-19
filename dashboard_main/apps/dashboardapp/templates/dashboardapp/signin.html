@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Sign in Page</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		{% load staticfiles %}
+		<link rel="stylesheet" href="{% static 'css/dashboardapp/styles.css' %}">
+	</head>
+	<body>
+		<div class="container-fluid">
+			<div class="row" id="navbar">
+				<div class="col-md-2 col-md-offset-2">
+					<h4>Dashboard App</h4>
+				</div>
+				<div class="col-md-1">
+					<h4>Home</h4>
+				</div>
+				<div class="col-md-1 col-md-offset-5">
+					<h4>Sign in</h4>
+				</div>
+			</div>
+			<div class="col-md-4 col-md-offset-2">
+				<h3>Sign In</h3>
+				{% for error in errors%}
+					<p>{{error}}</p>
+				{% endfor %}
+				<form action="{% url 'dashboard_login' %}" method="post">
+				{% csrf_token %}
+					<p>Email Address:</p>
+					<p><input type="text" name="email"></p>
+					<p>Password:</p>
+					<p><input type="password" name="password"></p>
+					<p><input type="submit" value="Sign In"></p>
+				</form>
+				<a href="{% url 'dashboard_register' %}">Don't have an account? Register.</a>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Dashboard</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		{% load staticfiles %}
+		<link rel="stylesheet" href="{% static 'css/dashboardapp/styles.css' %}">
+	</head>
+	<body>
+		<div class="container-fluid">
+			<div class="row" id="navbar">
+				<div class="col-md-2 col-md-offset-2">
+					<h4><a href="{% url 'dashboard_dashboard' %}">Dashboard App</a></h4>
+				</div>
+				<div class="col-md-1">
+					<h4><a href="{% url 'dashboard_profile' %}">Profile</a></h4>
+				</div>
+				<div class="col-md-1 col-md-offset-5">
+					<h4><a href="{% url 'dashboard_logoff' %}">Log off</a></h4>
+				</div>
+			</div>
+		<div class="row">
+			<div class="col-md-2 col-md-offset-2">
+				<h3>All Users</h3>
+			</div>
+		</div>
+		<div class="col-md-8 col-md-offset-2">
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<td>ID</td>
+						<td>Name</td>
+						<td>Email</td>
+						<td>Created At</td>
+						<td>User Level</td>
+					</tr>
+				</thead>
+				<tbody>
+					{% for user in users %}
+					<tr>
+						<td>{{user.id}}</td>
+						<td><a href="{% url 'dashboard_show' id=user.id %}">{{user.first_name}} {{user.last_name}}</a></td>
+						<td>{{user.email}}</td>
+						<td>{{user.created_at}}</td>
+						<td>{{user.user_level}}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</body>
+</html>

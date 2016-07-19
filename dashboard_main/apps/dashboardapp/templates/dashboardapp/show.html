@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Profile Page</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		{% load staticfiles %}
+		<link rel="stylesheet" href="{% static 'css/dashboardapp/styles.css' %}">
+	</head>
+	<body>
+		<div class="container-fluid">
+			<div class="row" id="navbar">
+				<div class="col-md-2 col-md-offset-2">
+					<h4><a href="{% url 'dashboard_dashboard' %}">Dashboard App</a></h4>
+				</div>
+				<div class="col-md-1">
+					<h4><a href="{% url 'dashboard_profile' %}">Profile</a></h4>
+				</div>
+				<div class="col-md-1 col-md-offset-5">
+					<h4><a href="{% url 'dashboard_logoff' %}">Log off</a></h4>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-md-offset-2">
+					<h3>{{user.first_name}} {{user.last_name}}</h3>
+					<p>Registered at: {{user.created_at}}</p>
+					<p>User ID: #{{user.id}}</p>
+					<p>Email Address: {{user.email}}</p>
+					<p>Description: {{user.description}}</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2">
+					<h3>Leave a message for {{user.first_name}}</h3>
+					<form action="{% url 'dashboard_post' id=user.id %}" method="post">
+						{% csrf_token %}
+						<textarea name="message" cols="100" rows="5"></textarea>
+						<p><input type="submit" class="btn btn-default" value="Post"></p>
+					</form>
+				</div>
+			</div>
+			{% for message in messages %}
+			{% if message.user == user %}
+				<div class="row">
+					<div class="col-md-6 col-md-offset-2">
+						<p>{{message.created_at}} -- {{message.author}} wrote:</p>
+						<div class="message">
+							<p>{{message.content}}</p>
+						</div>
+					</div>
+				</div>
+				{% for comment in comments %}
+				{% if comment.message = message %}
+				<div class="row">
+					<div class="col-md-5 col-md-offset-3">
+						<p>{{comment.created_at}} -- {{comment.author}} wrote:</p>
+						<div class="message">
+							<p>{{comment.content}}</p>
+						</div>
+					</div>		
+				</div>
+				{% endif %}
+				{% endfor %}
+				<div class="row">
+					<div class="col-md-3 col-md-offset-4">
+						<form action="{% url 'dashboard_reply' id=user.id%}" method="post">
+						{% csrf_token %}
+							<input type="hidden" name="messageid" value="{{message.id}}">
+							<textarea name="comment" cols="50" rows="4" placeholder="Write a comment"></textarea>
+							<input type="submit" class="btn btn-default" value="Post">
+						</form>
+					</div>
+				</div>
+			{% endif %}
+			{% endfor %}
+		</div>
+	</body>
+</html>

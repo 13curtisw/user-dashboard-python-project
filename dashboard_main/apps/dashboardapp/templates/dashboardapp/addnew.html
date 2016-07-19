@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>New User Page</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		{% load staticfiles %}
+		<link rel="stylesheet" href="{% static 'css/dashboardapp/styles.css' %}">
+	</head>
+	<body>
+		<div class="container-fluid">
+			<div class="row" id="navbar">
+				<div class="col-md-2 col-md-offset-2">
+					<h4><a href="{% url 'dashboard_dashboard' %}">Dashboard App</a></h4>
+				</div>
+				<div class="col-md-1">
+					<h4><a href="{% url 'dashboard_profile' %}">Profile</a></h4>
+				</div>
+				<div class="col-md-1 col-md-offset-5">
+					<h4><a href="{% url 'dashboard_logoff' %}">Log off</a></h4>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-2 col-md-offset-2">
+					<h3>Add a new user</h3>
+				</div>
+				<div class="col-md-1 col-md-offset-4">
+					<form action="{% url 'dashboard_dashboard' %}" method="get">
+						<input type="submit" class="btn btn-default" value="Return to Dashboard">
+					</form>
+				</div>
+			</div>
+			<div class="col-md-3 col-md-offset-2">
+				{% for error in errors %}
+					<p>{{error}}</p>
+				{% endfor %}
+				<form action="{% url 'dashboard_create' %}" method="post">
+				{% csrf_token %}
+					<input type="hidden" name="redirect_fail" value="dashboardapp/addnew.html">
+					<input type="hidden" name="redirect_success" value="dashboardapp/dashboard_admin.html">
+					<p>Email Address:</p>
+					<p><input type="text" name="email"></p>
+					<p>First Name:</p>
+					<p><input type="text" name="first_name"></p>
+					<p>Last Name:</p>
+					<p><input type="text" name="last_name"></p>
+					<p>Password:</p>
+					<p><input type="password" name="password"></p>
+					<p>Password Confirmation:</p>
+					<p><input type="password" name="confirm_password"></p>
+					<p><input type="submit" value="Create"></p>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>

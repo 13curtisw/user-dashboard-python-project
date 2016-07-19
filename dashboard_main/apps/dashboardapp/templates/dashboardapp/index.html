@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Dashboard App</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	{% load staticfiles %}
+	<link rel="stylesheet" href="{% static 'css/dashboardapp/styles.css' %}">
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row" id="navbar">
+			<div class="col-md-2 col-md-offset-2">
+				<h4>Dashboard App</h4>
+			</div>
+			<div class="col-md-1">
+				<h4>Home</h4>
+			</div>
+			<div class="col-md-1 col-md-offset-5">
+				<h4>Sign in</h4>
+			</div>
+		</div>
+		<div class="col-md-9 col-md-offset-2" id="welcome">
+			<h1>Welcome to my Dashboard Application!</h1>
+			<p>This application was built using Python and a Django MVC Framework. Designed and styled using Bootstrap. </p>
+			<form action="{% url 'dashboard_signin' %}" method="get">
+				<input class="btn btn-default" type="submit" value="Start">
+			</form>
+		</div>
+		<div class="row">
+			<div class="col-md-3 col-md-offset-2">
+				<h3>Manage Users</h3>
+				<p>Using this application, you'll be able to add, remove and edit users for the application</p>
+			</div>
+			<div class="col-md-3">
+				<h3>Leave Messages</h3>
+				<p>Users will be able to leave a message to another user as well as reply to messages using this application</p>
+			</div>
+			<div class="col-md-3">
+				<h3>Edit User Information</h3>
+				<p>Admins will be able to edit ANY users information (email, first name, last name, etc).</p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

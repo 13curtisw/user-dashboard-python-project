@@ -1,0 +1,15 @@
+#navbar{
+	border: 1px solid black;
+	margin-bottom: 20px
+}
+#welcome{
+	background-color: lightgrey;
+	padding: 10px;
+	margin-bottom: 20px;
+}
+.message{
+	border: 1px solid black;
+	height: 100px;
+	padding: 10px;
+	margin-bottom: 20px;
+}
